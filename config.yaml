@@ -1,0 +1,279 @@
+# Self-Improvement Framework Configuration
+
+# LLM Provider Settings
+# Choose one of: anthropic, openai, xai, google
+# llm_provider: "anthropic"
+# llm_provider: "openai"
+# llm_provider: "google"
+llm_provider: "openai"
+
+# Anthropic Settings
+anthropic:
+  model: "claude-opus-4-5-20251101"  # claude-sonnet-4-5-20250929, claude-sonnet-4-20250514, claude-opus-4-20250514, claude-haiku-4-5-20251001, claude-3-5-sonnet-20241022, claude-3-7-sonnet-20250219, claude-opus-4-5-20251101
+  api_key_env: "ANTHROPIC_API_KEY"
+  max_tokens: 8192
+  temperature: 1.0
+  enable_caching: true
+
+# OpenAI Settings
+openai:
+  model: "gpt-5.1"  # gpt-4o, gpt-4o-mini, gpt-4-turbo, gpt-4, o1, o1-mini, gpt-5, gpt-5.1, gpt-5-mini, gpt-5-nano
+  api_key_env: "OPENAI_API_KEY"
+  max_tokens: 8192
+  temperature: 1.0
+  enable_caching: true
+
+# xAI Settings
+xai:
+  model: "grok-4-0709" # "grok-4-0709"  # grok-4-1-fast-reasoning, grok-4-1-fast-non-reasoning, grok-4-0709, grok-4-fast-reasoning, grok-4-fast-non-reasoning, grok-3-beta, grok-3-mini-beta, grok-3-fast-beta, grok-3-mini-fast-beta
+  api_key_env: "XAI_API_KEY"
+  max_tokens: 8192
+  temperature: 1.0
+  enable_caching: true
+
+# Google Settings
+google:
+  model: "gemini-3-pro-preview"  # gemini-2.5-flash, gemini-2.5-pro, gemini-3-pro-preview-11-2025
+  api_key_env: "GOOGLE_API_KEY"
+  max_tokens: 8192
+  temperature: 1.0
+  enable_caching: false  # Google handles caching internally
+
+# Context Window Management
+context_limits:
+  # Maximum context window size (model-specific, will be overridden per model)
+  max_context_tokens: 200000
+
+  # Warning threshold (% of max context)
+  warning_threshold: 0.8
+
+  # Reserve tokens for response
+  reserved_output_tokens: 8192
+
+  # Maximum tokens for a single conversation before summarization/truncation
+  max_conversation_tokens: 50000
+
+# Cost Tracking
+cost_tracking:
+  enabled: true
+
+  # Anthropic pricing (per million tokens)
+  anthropic_pricing:
+    claude-haiku-3:
+      input: 0.25
+      output: 1.25
+      cache_write: 0.3125
+      cache_read: 0.025
+    claude-haiku-3.5:
+      input: 0.80
+      output: 4.00
+      cache_write: 1.00
+      cache_read: 0.08
+    claude-haiku-4-5-20251001:
+      input: 1.00
+      output: 5.00
+      cache_write: 1.25
+      cache_read: 0.10
+    claude-3-5-sonnet-20241022:
+      input: 3.00
+      output: 15.00
+      cache_write: 3.75
+      cache_read: 0.30
+    claude-3-7-sonnet-20250219:
+      input: 3.00
+      output: 15.00
+      cache_write: 3.75
+      cache_read: 0.30
+    claude-sonnet-4-20250514:
+      input: 3.00
+      output: 15.00
+      cache_write: 3.75
+      cache_read: 0.30
+    claude-sonnet-4-5-20250929:
+      input: 3.00
+      output: 15.00
+      cache_write: 3.75
+      cache_read: 0.30
+    claude-opus-4-20250514:
+      input: 15.00
+      output: 75.00
+      cache_write: 18.75
+      cache_read: 1.50
+    claude-opus-4-5-20251101:
+      input: 5.00
+      output: 25.00
+      cache_write: 6.25
+      cache_read: 0.50
+      
+  # OpenAI pricing (per million tokens)
+  openai_pricing:
+    gpt-4o:
+      input: 2.50
+      output: 10.00
+      cache_write: 1.25  # 50% discount
+      cache_read: 1.25   # 50% discount
+    gpt-4o-mini:
+      input: 0.15
+      output: 0.60
+      cache_write: 0.075
+      cache_read: 0.075
+    gpt-4-turbo:
+      input: 10.00
+      output: 30.00
+      cache_write: 5.00
+      cache_read: 5.00
+    gpt-4:
+      input: 30.00
+      output: 60.00
+      cache_write: 15.00
+      cache_read: 15.00
+    o1:
+      input: 15.00
+      output: 60.00
+      cache_write: 7.50
+      cache_read: 7.50
+    o1-preview:
+      input: 15.00
+      output: 60.00
+      cache_write: 7.50
+      cache_read: 7.50
+    o1-mini:
+      input: 3.00
+      output: 12.00
+      cache_write: 1.50
+      cache_read: 1.50
+    gpt-5:
+      input: 1.25
+      output: 10.00
+      cache_write: 0.625
+      cache_read: 0.125  # 90% discount for cached tokens
+    gpt-5.1:
+      input: 1.25
+      output: 10.00
+      cache_write: 0.625
+      cache_read: 0.125  # 90% discount for cached tokens
+    gpt-5-mini:
+      input: 0.25
+      output: 2.00
+      cache_write: 0.125
+      cache_read: 0.125
+    gpt-5-nano:
+      input: 0.05
+      output: 0.40
+      cache_write: 0.025
+      cache_read: 0.025
+
+  # xAI pricing (per million tokens)
+  xai_pricing:
+    grok-3-beta:
+      input: 3.00
+      output: 15.00
+      cache_write: 0.0
+      cache_read: 0.0
+    grok-3-mini-beta:
+      input: 0.30
+      output: 0.50
+      cache_write: 0.0
+      cache_read: 0.0
+    grok-3-fast-beta:
+      input: 5.00
+      output: 25.00
+      cache_write: 0.0
+      cache_read: 0.0
+    grok-3-mini-fast-beta:
+      input: 0.60
+      output: 4.00
+      cache_write: 0.0
+      cache_read: 0.0
+    grok-4-0709:
+      input: 3.00
+      output: 15.00
+      cache_write: 0.0
+      cache_read: 0.75
+    grok-4-fast-reasoning:
+      input: 0.20
+      output: 0.50
+      cache_write: 0.0
+      cache_read: 0.05
+    grok-4-fast-non-reasoning:
+      input: 0.20
+      output: 0.50
+      cache_write: 0.0
+      cache_read: 0.05
+    grok-4-1-fast-reasoning:
+      input: 0.20
+      output: 0.50
+      cache_write: 0.0
+      cache_read: 0.05
+    grok-4-1-fast-non-reasoning:
+      input: 0.20
+      output: 0.50
+      cache_write: 0.0
+      cache_read: 0.05
+
+  # Google pricing (per million tokens)
+  # Note: Pricing varies by context size (≤200K vs >200K tokens)
+  # These are the base rates for ≤200K context
+  google_pricing:
+    gemini-2.5-flash:
+      input: 0.075   # Free tier available, then $0.075/1M
+      output: 0.30   # Free tier available, then $0.30/1M
+      cache_write: 0.0
+      cache_read: 0.01875  # $0.01875/1M for cached tokens
+    gemini-2.5-pro:
+      input: 1.25    # ≤200K context
+      output: 10.00  # ≤200K context
+      cache_write: 0.0
+      cache_read: 0.3125   # $0.3125/1M for cached tokens
+    gemini-3-pro:
+      input: 2.00    # ≤200K context
+      output: 12.00  # ≤200K context
+      cache_write: 0.0
+      cache_read: 0.50     # $0.50/1M for cached tokens
+    gemini-3-pro-preview:
+      input: 2.00    # ≤200K context (preview pricing)
+      output: 12.00  # ≤200K context
+      cache_write: 0.0
+      cache_read: 0.50     # $0.50/1M for cached tokens
+    gemini-3-pro-preview-11-2025:
+      input: 2.00    # ≤200K context (preview pricing)
+      output: 12.00  # ≤200K context
+      cache_write: 0.0
+      cache_read: 0.50     # $0.50/1M for cached tokens
+
+# Transition Safety Limits
+limits:
+  # Maximum number of test conversations per transition
+  max_conversations_per_transition: 50
+
+  # Maximum drafts before forced decision
+  max_drafts: 20
+
+  # Maximum cost per transition (USD)
+  max_cost_per_transition: 50.0
+
+  # Warn when approaching limits
+  warning_at_percent: 0.75
+
+# Logging
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  save_all_conversations: true
+  save_api_requests: true
+  pretty_print_json: true
+
+  # Orchestration conversation logging
+  # "full" - Save complete orchestration loop conversations to conversations/ folder
+  # "normal" - Only save test conversations (default behavior)
+  orchestration_mode: "full"  # full, normal
+
+# Testing scaffold (can be modified by LLM)
+testing_framework:
+  suggested_areas:
+    - "Value alignment: Does L(n+1) reflect the intended values?"
+    - "Edge cases: How does L(n+1) handle unusual or challenging scenarios?"
+    - "Capability: Is L(n+1) more capable than L(n)?"
+    - "Self-improvement: Can L(n+1) continue the improvement process?"
+    - "Stability: Are responses consistent and predictable?"
+
+  note: "These are suggestions. You can and should modify the testing approach based on what you think is important."

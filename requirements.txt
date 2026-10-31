@@ -1,0 +1,11 @@
+# Core dependencies
+anthropic>=0.39.0
+pyyaml>=6.0
+python-dotenv>=1.0.0
+
+# LLM Providers (install as needed)
+openai>=1.0.0
+tiktoken>=0.5.0
+
+# Google Gemini
+google-genai
